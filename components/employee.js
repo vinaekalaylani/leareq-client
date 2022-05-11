@@ -1,6 +1,6 @@
 import { Row, Col } from 'react-bootstrap';
 
-export default function Employee() {
+export default function EmployeeComp() {
   return (
     <div>
       <div className="page-text">

@@ -1,6 +1,6 @@
 import { Row, Col } from 'react-bootstrap';
 
-export default function Report() {
+export default function ReportComp() {
   return (
     <div>
       <div className="page-text">
