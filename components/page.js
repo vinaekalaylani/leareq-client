@@ -3,11 +3,11 @@ import 'react-calendar/dist/Calendar.css';
 import { Row, Col } from 'react-bootstrap';
 import Link from 'next/link'
 
-export default function PageComp() {
+export default function PageComp({ data }) {
   return (
     <div>
       <div className="page-text">
-        <h1>Hello, Bunga Mawar Melati</h1>
+        <h1>Hello, {data.fullName}</h1>
       </div>
       <Row>
         <Col xs={5} className="calendar-container d-flex justify-content-center">
@@ -19,11 +19,11 @@ export default function PageComp() {
               <div className="title-profile">BM</div>
             </Col>
             <Col xs={6}>
-              <div className="text-profile">Bunga Mawar Melati</div>
-              <div className="text-profile">Full Stack Developer</div>
-              <div className="text-profile">EMP129012</div>
-              <div className="text-profile">bungamawar@mail.com</div>
-              <div className="text-profile">Semuanya Indah</div>
+              <div className="text-profile">{data.fullName}</div>
+              <div className="text-profile">{data.position}</div>
+              <div className="text-profile">{data.employeeCode}</div>
+              <div className="text-profile">{data.email}</div>
+              <div className="text-profile">{data.reportingManager}</div>
               <div className="btn-logout d-flex justify-content-center align-items-center">
                 <Link href="/"><div>Logout</div></Link>
               </div>
@@ -36,42 +36,16 @@ export default function PageComp() {
           <div className="page-text" style={{ margin: "-9px 0 9px 0" }}>
             <h4>Time Off Request</h4>
           </div>
-          <Row className="list-row d-flex align-items-center d-flex align-items-center">
-            <Col xs={3} className="list-col">19 May 2022</Col>
-            <Col xs={1} className="list-col" style={{ marginRight: "20px" }}>Leave</Col>
-            <Col xs={2} className="list-col">Approve</Col>
-            <Col xs={4} className="list-col">08 May 2022, 08:32 AM</Col>
-          </Row>
-          <Row className="list-row d-flex align-items-center">
-            <Col xs={3} className="list-col">19 May 2022</Col>
-            <Col xs={1} className="list-col" style={{ marginRight: "20px" }}>Leave</Col>
-            <Col xs={2} className="list-col">Approve</Col>
-            <Col xs={4} className="list-col">08 May 2022, 08:32 AM</Col>
-          </Row>
-          <Row className="list-row d-flex align-items-center">
-            <Col xs={3} className="list-col">19 May 2022</Col>
-            <Col xs={1} className="list-col" style={{ marginRight: "20px" }}>Leave</Col>
-            <Col xs={2} className="list-col">Approve</Col>
-            <Col xs={4} className="list-col">08 May 2022, 08:32 AM</Col>
-          </Row>
-          <Row className="list-row d-flex align-items-center">
-            <Col xs={3} className="list-col">19 May 2022</Col>
-            <Col xs={1} className="list-col" style={{ marginRight: "20px" }}>Leave</Col>
-            <Col xs={2} className="list-col">Approve</Col>
-            <Col xs={4} className="list-col">08 May 2022, 08:32 AM</Col>
-          </Row>
-          <Row className="list-row d-flex align-items-center">
-            <Col xs={3} className="list-col">19 May 2022</Col>
-            <Col xs={1} className="list-col" style={{ marginRight: "20px" }}>Leave</Col>
-            <Col xs={2} className="list-col">Approve</Col>
-            <Col xs={4} className="list-col">08 May 2022, 08:32 AM</Col>
-          </Row>
-          <Row className="list-row d-flex align-items-center">
-            <Col xs={3} className="list-col">19 May 2022</Col>
-            <Col xs={1} className="list-col" style={{ marginRight: "20px" }}>Leave</Col>
-            <Col xs={2} className="list-col">Approve</Col>
-            <Col xs={4} className="list-col">08 May 2022, 08:32 AM</Col>
-          </Row>
+          {
+            data.Leaves.map(el => (
+              <Row key={el.id} className="list-row d-flex align-items-center d-flex align-items-center">
+                <Col xs={3} className="list-col">{el.dateFrom}</Col>
+                <Col xs={1} className="list-col" style={{ marginRight: "20px" }}>{el.type}</Col>
+                <Col xs={2} className="list-col">{el.status}</Col>
+                <Col xs={4} className="list-col">{el.createdAt}</Col>
+              </Row>
+            ))
+          }
         </Col>
         <Col xs={3} className="request-card" style={{ margin: "0px" }}>
           <div className="req-text">Time Off (Quick Apply)</div>
