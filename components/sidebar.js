@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 export default function SideBar() {
   return (
     <div className="sidebar d-flex align-items-center">
@@ -5,16 +7,24 @@ export default function SideBar() {
         <h1>BM</h1>
       </div>
       <div className="btn-sidebar">
-        <div>DASHBOARD</div>
+        <Link href="/dashboard">
+          <div>DASHBOARD</div>
+        </Link>
       </div>
       <div className="btn-sidebar">
-        <div>TIME OFF</div>
+        <Link href="/time-off">
+          <div>TIME OFF</div>
+        </Link>
       </div>
       <div className="btn-sidebar">
-        <div>EMPLOYEE</div>
+        <Link href="/employee">
+          <div>EMPLOYEE</div>
+        </Link>
       </div>
       <div className="btn-sidebar">
-        <div>REPORT</div>
+        <Link href="/report">
+          <div>REPORT</div>
+        </Link>
       </div>
     </div>
   )

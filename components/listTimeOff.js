@@ -1,6 +1,6 @@
 import { Row, Col } from 'react-bootstrap';
 
-export default function TimeOff() {
+export default function TimeOffComp() {
   return (
     <div style={{marginTop: "40px"}}>
       <div className="page-text">
