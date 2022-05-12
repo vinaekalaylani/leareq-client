@@ -1,19 +1,19 @@
 import Link from 'next/link'
 
-export default function SideBar() {
+export default function SideBar(props) {
   return (
     <div className="sidebar d-flex align-items-center">
       <div className="side-profile rounded-circle d-flex justify-content-center align-items-center">
-        <h1>BM</h1>
+        <h1>{props.initial_user}</h1>
       </div>
       <div className="btn-sidebar">
-        <Link href="/dashboard">
+        <Link href="/">
           <div>DASHBOARD</div>
         </Link>
       </div>
       <div className="btn-sidebar">
         <Link href="/time-off">
-          <div>TIME OFF</div>
+          <div>LEAVE</div>
         </Link>
       </div>
       <div className="btn-sidebar">

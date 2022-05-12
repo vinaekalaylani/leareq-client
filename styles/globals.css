@@ -9,6 +9,7 @@
   width: 800px;
   box-shadow: -12px -12px 10px rgba(255, 255, 255, 0.2), 5px 5px 10px rgba(166, 180, 200, 0.7);
   border-radius: 10px;
+  overflow: hidden;
 }
 
 .image-login {
@@ -28,15 +29,16 @@
   flex-direction: column;
   box-shadow: -12px -12px 10px rgba(255, 255, 255, 0.2), 5px 5px 10px rgba(166, 180, 200, 0.7);
   border-radius: 40px;
+  border: solid 1px;
+  border-color: #F6F6F6;
 }
 
 /* SIDE PROFILE */
 .side-profile {
   width: 6rem;
   height: 6rem;
-  border: solid;
-  border-color: #47597E;
-  color: #47597E;
+  background-color: #FECD1A;
+  color: #fff;
   margin-top: 2rem;
   margin-bottom: 4rem;
 }
@@ -44,19 +46,19 @@
 .btn-sidebar {
   width: 11rem;
   height: 37px;
-  background-color: #47597E;
+  background-color: #05499C;
   border-radius: 10px;
   margin-top: 10px;
   padding-left: 18px;
   padding-top: 6px;
   color: #fff;
-  font-weight: bold;
 }
 
 /* PAGE */
 .page-text {
-  color: #47597E;
+  color: #FECD1A;
   margin : 20px 0;
+  font-weight: bold;
 }
 
 /* CALENDAR */
@@ -66,20 +68,20 @@
   height: 320px;
   box-shadow: -12px -12px 10px rgba(255, 255, 255, 0.2), 5px 5px 10px rgba(166, 180, 200, 0.7);
   border-radius: 10px;
+  border: solid 1px;
+  border-color: #F6F6F6;
 }
 
 .react-calendar {
   width: 370px;
   max-width: 100%;
   background-color: #fff;
-  color: #47597E;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  color: #555555;
   border: 0 !important;
 }
 
 .react-calendar__navigation button {
-  color: #47597E;
+  color: #555555;
   min-width: 44px;
   background: none;
   font-size: 16px;
@@ -94,29 +96,31 @@ abbr[title] {
 .profile-container {
   margin-bottom: 2rem;
   margin-left: 50px;
-  width: 520px;
+  width: 500px;
   height: 320px;
   box-shadow: -12px -12px 10px rgba(255, 255, 255, 0.2), 5px 5px 10px rgba(166, 180, 200, 0.7);
   border-radius: 10px;
+  border: solid 1px;
+  border-color: #F6F6F6;
 }
 
 .profile {
   width: 200px;
-  height: 130px;
-  border: solid;
-  border-color: #47597E;
+  height: 170px;
+  background-color: #05499C;
   margin-inline: 40px;
 }
 
 .title-profile {
-  font-size: 70px;
-  color: #47597E;
+  font-weight: bold;
+  font-size: 60px;
+  color: #fff;
 }
 
 .text-profile {
   margin-block: 15px;
-  color: #47597E;
-  font-size: 17px;
+  color: #555555;
+  font-size: 15px;
   font-weight: bold;
 }
 
@@ -131,16 +135,23 @@ abbr[title] {
 }
 
 /* LIST */
+.list-container {
+  max-height: 300px;
+  overflow: scroll;
+  padding-left: 12px;
+}
+
 .list-row {
   height: 37px;
   width: 40rem;
-  box-shadow: -12px -12px 10px rgba(255, 255, 255, 0.2), 5px 5px 10px rgba(166, 180, 200, 0.7);
-  border-radius: 10px;
   margin-bottom: 14px;
+  border-radius: 10px;
+  border: solid 1px;
+  border-color: #DDDDDD;
 }
 
 .list-col {
-  color: #47597E;
+  color: #555555;
   margin: 5px 0 0 17px;
   width: 13rem;
 }
@@ -150,28 +161,30 @@ abbr[title] {
   padding-inline: 20px;
   max-height: 20rem;
   box-shadow: -12px -12px 10px rgba(255, 255, 255, 0.2), 5px 5px 10px rgba(166, 180, 200, 0.7);
+  background-color: #05499C;
+  color: #fff;
   border-radius: 10px;
-  color: #47597E;
-  font-weight: bold;
+  border: solid 1px;
+  border-color: #F6F6F6;
 }
 
 .req-text {
   margin-top: 12px;
-  color: #47597E;
+  color: #fff;
 }
 
 .text-to {
   font-size: 14px;
   margin-top: 5px;
-  color: #47597E;
+  color: #fff;
   padding: 0;
 }
 
 .btn-quick {
   text-align: center;
-  color: #fff;
+  color: #05499C;
   padding-top: 2px;
-  background-color: #47597E;
+  background-color: #fff;
   margin-top: 50px;
   height: 30px;
   width: 6rem;
@@ -179,12 +192,16 @@ abbr[title] {
 }
 
 /* LIST TIME OFF */
+.to-container {
+  max-height: 41rem;
+  overflow: scroll;
+}
+
 .detail-to {
   width: 400px;
   height: 600px;
   box-shadow: -12px -12px 10px rgba(255, 255, 255, 0.2), 5px 5px 10px rgba(166, 180, 200, 0.7);
   border-radius: 10px;
-  color: #47597E;
 }
 
 .detail-text {
@@ -238,4 +255,37 @@ abbr[title] {
   border-radius: 5px;
   font-weight: bold;
   margin-bottom: 20px;
+}
+
+/* REQUEST LEAVE */
+.detail-user {
+  height: 70px;
+  width: 17rem;
+  margin-bottom: 14px;
+  border-radius: 10px;
+  border: solid 1px;
+  border-color: #DDDDDD;
+}
+
+.user-profile {
+  width: 50px;
+  height: 50px;
+  background-color: #FECD1A;
+  color: #fff;
+  font-weight: bold;
+  font-size: 22px;
+  margin-right: 15px;
+}
+
+.user-profile-text {
+  color: #555555;
+  font-size: 16px;
+}
+.req-container {
+  max-width: 800px;
+  color: #555555;
+}
+
+.label-form {
+  margin-bottom: 15px;
 }
