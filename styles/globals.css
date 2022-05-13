@@ -294,3 +294,22 @@ abbr[title] {
 .label-form {
   margin-bottom: 15px;
 }
+
+/* PRINT */
+.print-container {
+  padding: 100px;
+}
+
+.print-source {
+  display: none;
+}
+
+body > .print-source {
+  display: block;
+}
+
+@media print {
+  .print-source {
+    display: block;
+  }
+}

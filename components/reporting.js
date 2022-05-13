@@ -1,10 +1,10 @@
-import { useRouter } from 'next/router';
+import React from "react";
 import { useState } from 'react';
 import { Row, Col, Form, Button } from 'react-bootstrap';
 import searchApi from '../services/api';
+import ReactToPrint from "react-to-print";
 
 export default function ReportComp(props) {
-  const router = useRouter()
   const [type, setType] = useState("")
   const [status, setStatus] = useState("")
 
@@ -31,8 +31,8 @@ export default function ReportComp(props) {
         <h1>Report Time Off</h1>
       </div>
       <Row>
-        <Col xs={9}>
-          <div className="report-container">
+        <Col xs={9} >
+          <div className="report-container" ref={el => (React.componentRef = el)}>
             {
               props.leaves.map(el => (
                 <Row className="list-row d-flex align-items-center" key={el.id}>
@@ -46,7 +46,10 @@ export default function ReportComp(props) {
             }
           </div>
           <div className="d-flex justify-content-end" style={{ marginTop: "20px", marginRight: "40px" }}>
-            <div className="btn d-flex justify-content-center align-items-center" style={{ color: "#fff", backgroundColor: "#FFD460" }}>Print</div>
+            <ReactToPrint
+              trigger={() => <div className="btn d-flex justify-content-center align-items-center" style={{ color: "#fff", backgroundColor: "#FFD460" }}>Print</div>}
+              content={() => React.componentRef}
+            />
           </div>
         </Col>
         <Col xs={3}>
@@ -70,7 +73,7 @@ export default function ReportComp(props) {
                   <div onClick={handleClear} className="btn-add d-flex justify-content-center align-items-center" style={{ color: "#fff", backgroundColor: "#EF4B4B" }}>Clear
                   </div>
                 </Col>
-                <Col xs={4} style={{ marginLeft: "10px"}}>
+                <Col xs={4} style={{ marginLeft: "10px" }}>
                   <Button type="submit" className="btn-add d-flex justify-content-center align-items-center" style={{ color: "#fff", backgroundColor: "#05499C" }}>Search
                   </Button>
                 </Col>
