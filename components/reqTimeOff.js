@@ -31,7 +31,6 @@ export default function ReqTimeOff({user, initial}) {
     }
 
     await searchApi.ApplyLeave(data)
-    
     router.push("/")
   }
 
