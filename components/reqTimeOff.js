@@ -2,8 +2,9 @@ import axios from "axios"
 import { useRouter } from "next/router"
 import { useState } from "react"
 import { Form, Button, Row, Col } from "react-bootstrap"
+import searchApi from "../services/api"
 
-export default function ReqTimeOff(props) {
+export default function ReqTimeOff({user, initial}) {
   const [type, setType] = useState("")
   const [dayType, setDayType] = useState("")
   const [dateFrom, setDateFrom] = useState("")
@@ -29,21 +30,16 @@ export default function ReqTimeOff(props) {
       reason
     }
 
-    const res = await axios.post('http://localhost:3600/request',
-      data,
-      {
-        headers: {
-          access_token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZnVsbE5hbWUiOiJCdW5nYSBNYXdhciBNZWxhdGkiLCJlbWFpbCI6ImJ1bmdhQG1haWwuY29tIiwibGV2ZWwiOjEsImlhdCI6MTY1MjI2MzUwOX0.oz10kCDjSVeNlTLHwcVN6SBcuH1UQpgQefz6PyWHKhQ`
-        }
-      })
+    await searchApi.ApplyLeave(data)
+    
     router.push("/")
   }
 
   return (
     <div style={{ marginTop: "20px" }}>
       <div className="detail-user d-flex justify-content-center align-items-center">
-        <div className="user-profile rounded-circle d-flex justify-content-center align-items-center">{props.initial_user}</div>
-        <div className="user-profile-text d-flex justify-content-center align-items-center">Bunga Mawar Melati (Me)</div>
+        <div className="user-profile rounded-circle d-flex justify-content-center align-items-center">{initial}</div>
+        <div className="user-profile-text d-flex justify-content-center align-items-center">{user.fullName} (Me)</div>
       </div>
       <div className="req-container">
         <Form onSubmit={handleApply}>
@@ -123,14 +119,14 @@ export default function ReqTimeOff(props) {
           <Form.Control type="date" as="textarea" rows="3" className="mb-3" value={reason} onChange={(e) => setReason(e.target.value)} />
           <label className="label-form" style={{ fontSize: "23px" }}>Reporting Information</label><br />
           <label className="label-form">Reporting Manager :</label>
-          <div className="detail-user d-flex justify-content-center align-items-center">
-            <div className="user-profile rounded-circle d-flex justify-content-center align-items-center">BM</div>
-            <div className="user-profile-text d-flex justify-content-center align-items-center">Bunga Mawar Melati (Me)</div>
+          <div className="detail-user d-flex align-items-center">
+            <div className="user-profile rounded-circle d-flex justify-content-center align-items-center" style={{marginLeft: "10px"}}>RM</div>
+            <div className="user-profile-text d-flex justify-content-center align-items-center">{user.reportingManager} (Me)</div>
           </div>
           <label className="label-form">Additional Manager :</label>
-          <div className="detail-user d-flex justify-content-center align-items-center">
-            <div className="user-profile rounded-circle d-flex justify-content-center align-items-center">BM</div>
-            <div className="user-profile-text d-flex justify-content-center align-items-center">Bunga Mawar Melati (Me)</div>
+          <div className="detail-user d-flex align-items-center">
+            <div className="user-profile rounded-circle d-flex justify-content-center align-items-center" style={{marginLeft: "10px"}}>AM</div>
+            <div className="user-profile-text d-flex justify-content-center align-items-center">{user.aditionalManager} (Me)</div>
           </div>
           <div style={{ marginTop: "1rem" }}>
             <Button type="submit" className="btn-add d-flex justify-content-center align-items-center" style={{ color: "#fff", backgroundColor: "#05499C" }}>APPLY

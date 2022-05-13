@@ -1,8 +1,8 @@
 import { Row, Col, Container, Form, Button } from 'react-bootstrap';
 import Image from "next/image";
 import { useState } from 'react';
-import axios from 'axios';
 import { useRouter } from 'next/router'
+import searchApi from '../services/api';
 
 export default function Login() {
   const [email, setEmail] = useState("")
@@ -12,7 +12,7 @@ export default function Login() {
   const handleLogin = async (e) => {
     try {
       e.preventDefault();
-      const res = await axios.post('http://localhost:3600/login', { email, password })
+      await searchApi.login({email, password})
       router.push("/")
     } catch (error) {
       console.log(error)
@@ -46,7 +46,7 @@ export default function Login() {
             <div className="d-flex justify-content-center" style={{ marginTop: "3rem" }}>
               <Form onSubmit={handleLogin}>
                 <Form.Group className="mb-3">
-                  <Form.Control placeholder="Email" name="email" value={email} onChange={handleEmail} />
+                  <Form.Control type="email" placeholder="Email" name="email" value={email} onChange={handleEmail} />
                 </Form.Group>
                 <Form.Group className="mb-3">
                   <Form.Control type="password" placeholder="Password" name="password" value={password} onChange={handlePass} />
