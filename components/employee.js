@@ -1,6 +1,7 @@
-import axios from 'axios';
 import { useState } from 'react';
 import { Row, Col, Modal, Form, Button } from 'react-bootstrap';
+import searchApi from '../services/api';
+import { useRouter } from 'next/router';
 
 export default function EmployeeComp(props) {
   const [show, setShow] = useState(false)
@@ -10,6 +11,9 @@ export default function EmployeeComp(props) {
   const [position, setPosition] = useState("")
   const [employeeCode, setEmployeeCode] = useState("")
   const [reportingManager, setReportingManager] = useState("")
+  const [aditionalManager, setAditionalManager] = useState("")
+  const [leaveAvailable, setLeaveAvailable] = useState("")
+  const router = useRouter()
 
   const handleShow = () => {
     setShow(true)
@@ -43,6 +47,14 @@ export default function EmployeeComp(props) {
     setReportingManager(e.target.value)
   }
 
+  const handleAditionalManager = (e) => {
+    setAditionalManager(e.target.value)
+  }
+
+  const handleLeaveAvailable = (e) => {
+    setLeaveAvailable(e.target.value)
+  }
+
   const handleCreate = async (e) => {
     try {
       e.preventDefault();
@@ -53,18 +65,17 @@ export default function EmployeeComp(props) {
         position,
         employeeCode,
         reportingManager,
+        aditionalManager,
+        leaveAvailable,
         level: "0",
       }
 
-      const res = await axios.post('http://localhost:3600/create-user',
-        data,
-        {
-          headers: {
-            access_token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZnVsbE5hbWUiOiJCdW5nYSBNYXdhciBNZWxhdGkiLCJlbWFpbCI6ImJ1bmdhQG1haWwuY29tIiwibGV2ZWwiOjEsImlhdCI6MTY1MjI2MzUwOX0.oz10kCDjSVeNlTLHwcVN6SBcuH1UQpgQefz6PyWHKhQ`
-          }
-        })
-
+      const res = await searchApi.CreateUser(data)
       handleClose()
+      
+      const users = await searchApi.getListUser()
+      props.setUsers(users)
+      router.push("/employee")
     } catch (error) {
       console.log(error)
     }
@@ -88,6 +99,8 @@ export default function EmployeeComp(props) {
             <Form.Control className="mb-3" placeholder="Position" value={position} onChange={handlePosition} />
             <Form.Control className="mb-3" placeholder="Employee Code" value={employeeCode} onChange={handleEmpCode} />
             <Form.Control className="mb-3" placeholder="Reporting Manager" value={reportingManager} onChange={handleManager} />
+            <Form.Control className="mb-3" placeholder="Aditional Manager" value={aditionalManager} onChange={handleAditionalManager} />
+            <Form.Control className="mb-3" placeholder="Leave" value={leaveAvailable} onChange={handleLeaveAvailable} />
             <Button type="submit" className="btn-add d-flex justify-content-center align-items-center" style={{ color: "#fff", backgroundColor: "#05499C" }}>SAVE</Button>
           </Form>
         </Modal.Body>
@@ -95,13 +108,15 @@ export default function EmployeeComp(props) {
       <div className="btn-add d-flex justify-content-center align-items-center" style={{ color: "#fff", backgroundColor: "#FFD460" }} onClick={handleShow}>New Employee</div>
       <Row>
         {
-          props.data.map(el => (
+          props.users.map(el => (
             <Col xs={2} key={el.id} className="emp-row d-flex justify-content-center align-items-center">
               <div>
-                <div className="rounded-circle employee d-flex justify-content-center align-items-center">
-                  <h3>BM</h3>
+                <div className="d-flex justify-content-center">
+                  <div className="rounded-circle employee d-flex justify-content-center align-items-center">
+                    <h3>BM</h3>
+                  </div>
                 </div>
-                <div className="emp-text">{el.fullName}</div>
+                <div className="emp-text text-center">{el.fullName}</div>
               </div>
             </Col>
           ))

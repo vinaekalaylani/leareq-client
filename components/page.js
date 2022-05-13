@@ -3,10 +3,10 @@ import 'react-calendar/dist/Calendar.css';
 import { Row, Col, Modal, Form, Button } from 'react-bootstrap';
 import Link from 'next/link'
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useRouter } from 'next/router';
+import searchApi from '../services/api';
 
-export default function PageComp({ data, initial_user }) {
+export default function PageComp({ user, initial_user, leaves, setLeaves }) {
   const [date, setDate] = useState("")
   const [month, setMonth] = useState("")
   const [show, setShow] = useState(false)
@@ -40,28 +40,11 @@ export default function PageComp({ data, initial_user }) {
   const handleApply = async (e) => {
     try {
       e.preventDefault();
-      const dateFrom = new Date(Date.now()).toISOString().substring(0, 10);
-
-      const currentDate = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
-      const day = currentDate.getDate()
-      const month = currentDate.getMonth() + 1
-      const year = currentDate.getFullYear()
-      const dateTo = year + "-" + month + "-" + day
-
-      const data = {
-        type: "Leave",
-        dayType: "Full",
-        dateFrom,
-        dateTo,
-        reason
-      }
-      const res = await axios.post('http://localhost:3600/request',
-        data,
-        {
-          headers: {
-            access_token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZnVsbE5hbWUiOiJCdW5nYSBNYXdhciBNZWxhdGkiLCJlbWFpbCI6ImJ1bmdhQG1haWwuY29tIiwibGV2ZWwiOjEsImlhdCI6MTY1MjI2MzUwOX0.oz10kCDjSVeNlTLHwcVN6SBcuH1UQpgQefz6PyWHKhQ`
-          }
-        })
+      const apply = await searchApi.QuickApply(reason)
+      const leaves_update = await searchApi.LeaveUserLogin()
+      setReason("")
+      setLeaves(leaves_update)
+      router.push("/")
       handleClose()
     } catch (error) {
       console.log(error)
@@ -72,6 +55,12 @@ export default function PageComp({ data, initial_user }) {
     setReason(e.target.value)
   }
 
+  const logout = () => {
+    localStorage.removeItem("access_token")
+    localStorage.removeItem("level")
+    router.push("/login")
+  }
+
   useEffect(() => {
     getDate()
   }, [])
@@ -79,7 +68,7 @@ export default function PageComp({ data, initial_user }) {
   return (
     <div>
       <div className="page-text">
-        <h1>Hello, {data.fullName}</h1>
+        <h1>Hello, {user.fullName}</h1>
       </div>
       <Row>
         <Col xs={5} className="calendar-container d-flex justify-content-center align-items-center">
@@ -91,12 +80,12 @@ export default function PageComp({ data, initial_user }) {
               <div className="title-profile">{initial_user}</div>
             </Col>
             <Col xs={6}>
-              <div className="text-profile">{data.fullName}</div>
-              <div className="text-profile">{data.position}</div>
-              <div className="text-profile">{data.employeeCode}</div>
-              <div className="text-profile">{data.email}</div>
-              <div className="text-profile">{data.reportingManager}</div>
-              <div onClick={() => router.push("/login")} className="btn-logout d-flex justify-content-center align-items-center">
+              <div className="text-profile">{user.fullName}</div>
+              <div className="text-profile">{user.position}</div>
+              <div className="text-profile">{user.employeeCode}</div>
+              <div className="text-profile">{user.email}</div>
+              <div className="text-profile">{user.reportingManager}</div>
+              <div onClick={logout} className="btn-logout d-flex justify-content-center align-items-center">
                 Logout
               </div>
             </Col>
@@ -110,7 +99,7 @@ export default function PageComp({ data, initial_user }) {
           </div>
           <div className="list-container">
             {
-              data.Leaves.map(el => (
+              leaves.map(el => (
                 <Row key={el.id} className="list-row d-flex align-items-center d-flex align-items-center">
                   <Col xs={3} className="list-col">{new Date(el?.dateFrom).toLocaleString('default', { day: 'numeric', month: 'long', year: 'numeric' })}</Col>
                   <Col xs={1} className="list-col" style={{ marginRight: "35px" }}>{el.type}</Col>
@@ -144,7 +133,7 @@ export default function PageComp({ data, initial_user }) {
           <Link href="/apply-timeoff"><div className="req-text" style={{ textDecoration: "underline" }}>Apply for Another Date</div></Link>
           <hr />
           <div className="text-to">Time Off</div>
-          <div className="text-to">Leave&emsp;: 12 days / 10 available</div>
+          <div className="text-to mb-2">Leave&emsp;: {user.leaveAvailable} Days Available</div>
         </Col>
       </Row>
     </div>
