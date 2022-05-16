@@ -1,8 +1,10 @@
 import { Row, Col, Container, Form, Button } from 'react-bootstrap';
-import Image from "next/image";
 import { useState } from 'react';
 import { useRouter } from 'next/router'
+
+import Image from "next/image";
 import searchApi from '../services/api';
+import { success, error } from '../components/swal';
 
 export default function Login() {
   const [email, setEmail] = useState("")
@@ -13,9 +15,10 @@ export default function Login() {
     try {
       e.preventDefault();
       await searchApi.login({email, password})
-      router.push("/")
-    } catch (error) {
-      console.log(error)
+      success()
+      router.push("/");
+    } catch (err) {
+      error(err)
     }
   }
 
