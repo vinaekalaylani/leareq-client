@@ -1,12 +1,14 @@
+import Link from 'next/link'
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { Row, Col, Modal, Form, Button } from 'react-bootstrap';
-import Link from 'next/link'
+
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import searchApi from '../services/api';
+import { success, error } from './swal';
 
-export default function PageComp({ user, initial_user, leaves, setLeaves }) {
+export default function PageComp({ user, initial, leaves, setLeaves }) {
   const [date, setDate] = useState("")
   const [month, setMonth] = useState("")
   const [show, setShow] = useState(false)
@@ -32,22 +34,23 @@ export default function PageComp({ user, initial_user, leaves, setLeaves }) {
 
       setDate(date_now)
       setMonth(month_now)
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      error(err);
     }
   };
 
   const handleApply = async (e) => {
     try {
       e.preventDefault();
-      const apply = await searchApi.QuickApply(reason)
-      const leaves_update = await searchApi.LeaveUserLogin()
+      await searchApi.QuickApply(reason)
+      const update = await searchApi.getUserLogin()
+      success()
       setReason("")
-      setLeaves(leaves_update)
+      setLeaves(update?.Leaves)
       router.push("/")
       handleClose()
-    } catch (error) {
-      console.log(error)
+    } catch (err) {
+      console.log(err)
     }
   }
 
@@ -77,7 +80,7 @@ export default function PageComp({ user, initial_user, leaves, setLeaves }) {
         <Col xs={6}>
           <Row className="profile-container d-flex align-items-center">
             <Col xs={4} className="profile d-flex justify-content-center align-items-center rounded-circle">
-              <div className="title-profile">{initial_user}</div>
+              <div className="title-profile">{initial}</div>
             </Col>
             <Col xs={6}>
               <div className="text-profile">{user.fullName}</div>
