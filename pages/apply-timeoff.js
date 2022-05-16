@@ -1,8 +1,9 @@
-import SideBar from '../components/sidebar'
 import { Row, Col, Container } from 'react-bootstrap';
 import ReqTimeOff from '../components/reqTimeOff';
-import { useEffect, useState } from "react"
+import SideBar from '../components/sidebar'
 import searchApi from "../services/api"
+
+import { useEffect, useState } from "react"
 
 export default function ApplyTimeOff() {
   const [user, setUser] = useState({})
