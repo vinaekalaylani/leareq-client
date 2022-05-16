@@ -46,10 +46,8 @@ export default function Home() {
 
   useEffect(() => {
     Auth();
-    if (auth) {
-      getUserLogin();
-      getInitial();
-    }
+    getUserLogin();
+    getInitial();
   }, []);
 
   return (
