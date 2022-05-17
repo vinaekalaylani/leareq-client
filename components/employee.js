@@ -8,7 +8,6 @@ import ModalDetail from "./modalDetail";
 import { success, error } from "./swal";
 
 export default function EmployeeComp(props) {
-  const [showEdit, setShowEdit] = useState(false);
   const [showDetail, setShowDetail] = useState(false);
   const [show, setShow] = useState(false);
 
@@ -30,6 +29,15 @@ export default function EmployeeComp(props) {
   };
 
   const handleClose = () => {
+    setFullName("")
+    setEmail("")
+    setPassword("")
+    setPosition("")
+    setEmployeeCode("")
+    setReportingManager("")
+    setAditionalManager("")
+    setLeaveAvailable("")
+    setLevel("")
     setShow(false);
   };
 
