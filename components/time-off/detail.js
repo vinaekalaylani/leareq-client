@@ -16,7 +16,7 @@ export default function Detail(props) {
   };
 
   return (
-    <div className="detail-to" style={{ padding: "30px 20px 30px 20px" }}>
+    <div className="detail-to" style={{ padding: "15px 20px 30px 20px" }}>
       <h3>Time Off Request</h3>
       <hr />
       <div className="detail-text">
@@ -34,6 +34,9 @@ export default function Detail(props) {
       <div className="detail-text">
         Reporting Manager : {props?.user?.reportingManager}
       </div>
+      <div className="detail-text">
+        Aditional Manager : {props?.user?.aditionalManager}
+      </div>
       <hr />
       <div className="detail-text">Type : {props?.leave.type}</div>
       <div className="detail-text">
@@ -48,7 +51,7 @@ export default function Detail(props) {
       {props?.leave?.status === "Process" && props.level == 1 && (
         <Row
           className="d-flex justify-content-center"
-          style={{ marginTop: "30px", marginLeft: "-40px" }}
+          style={{ marginTop: "20px", marginLeft: "-40px" }}
         >
           <Col xs={3} style={{ marginInline: "10px" }}>
             <div className="btn d-flex justify-content-center align-items-center"

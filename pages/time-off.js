@@ -6,7 +6,6 @@ import searchApi from '../services/api';
 import { useRouter } from 'next/router';
 
 export default function TimeOff() {
-  const router = useRouter()
   const [leaves, setLeaves] = useState([])
   const [leave, setLeave] = useState({})
   const [level, setLevel] = useState(0)
@@ -18,7 +17,9 @@ export default function TimeOff() {
 
   const getLeaves = async () => {
     try {
-      const res = await searchApi.getListLeaves()
+      const user = await searchApi.getUserLogin()
+      const data_leaves = await searchApi.getListLeaves()
+      const res = data_leaves.filter(el => el.User.reportingManager == user.fullName || el.User.aditionalManager == user.fullName)
       setLeaves(res)
     } catch (error) {
       console.log(error)

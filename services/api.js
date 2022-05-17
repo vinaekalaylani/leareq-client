@@ -42,7 +42,7 @@ class api {
       dateTo,
       reason: req
     }
-    
+
     const res = await axios.post('https://leareq-server.herokuapp.com/leave/create', data,
       {
         headers: {
@@ -74,10 +74,10 @@ class api {
     })
 
     const level = localStorage.getItem("level")
+    const user_login = await this.getUserLogin()
     if (level == 0) {
-      const user_login = await this.getUserLogin()
-      const res_by_level = await res.data.filter(el => el.UserId == user_login.id)
-      return res_by_level
+      const res_staff = await res.data.filter(el => el.UserId == user_login.id)
+      return res_staff
     }
 
     return res.data
