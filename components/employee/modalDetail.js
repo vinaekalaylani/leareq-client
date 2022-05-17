@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Modal, Form, Button, Col, Row } from "react-bootstrap";
 
-import searchApi from "../services/api";
-import { success, error } from "./swal";
+import searchApi from "../../services/api";
+import { success, error } from "../swal";
 
 export default function ModalDetail({ show, handleClose, user, getUsers }) {
   const [leaveAvailable, setLeaveAvailable] = useState("");

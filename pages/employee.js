@@ -1,7 +1,8 @@
-import SideBar from "../components/sidebar";
 import { Row, Col, Container } from "react-bootstrap";
-import EmployeeComp from "../components/employee";
 import { useEffect, useState } from "react";
+
+import EmployeeComp from "../components/employee/employee";
+import SideBar from "../components/sidebar";
 import searchApi from "../services/api";
 
 export default function Employee() {

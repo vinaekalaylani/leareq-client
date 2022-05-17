@@ -1,12 +1,12 @@
-import Link from 'next/link'
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
 import { Row, Col, Modal, Form, Button } from 'react-bootstrap';
+import 'react-calendar/dist/Calendar.css';
+import Calendar from 'react-calendar';
+import Link from 'next/link'
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import searchApi from '../services/api';
 import { success, error } from './swal';
+import searchApi from '../services/api';
 
 export default function PageComp({ user, initial, leaves, setLeaves }) {
   const [date, setDate] = useState("")

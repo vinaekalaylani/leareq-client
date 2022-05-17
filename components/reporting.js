@@ -1,6 +1,7 @@
-import React from "react";
-import { useState } from "react";
 import { Row, Col, Form, Button } from "react-bootstrap";
+import { useState } from "react";
+import React from "react";
+
 import searchApi from "../services/api";
 
 export default function ReportComp(props) {

@@ -2,10 +2,10 @@ import { Row, Col } from "react-bootstrap";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
-import searchApi from "../services/api";
+import searchApi from "../../services/api";
 import ModalCreate from "./modalCreate";
 import ModalDetail from "./modalDetail";
-import { success, error } from "./swal";
+import { success, error } from "../swal";
 
 export default function EmployeeComp(props) {
   const [showDetail, setShowDetail] = useState(false);
@@ -84,9 +84,6 @@ export default function EmployeeComp(props) {
 
   return (
     <div>
-      <div className="page-text">
-        <h1>Employee</h1>
-      </div>
       <ModalCreate
         show={show}
         handleClose={handleClose}
@@ -117,21 +114,20 @@ export default function EmployeeComp(props) {
         user={props.user}
         getUsers={props.getUsers}
       />
-      <div
-        className="btn-add d-flex justify-content-center align-items-center"
+      
+      <div className="page-text">
+        <h1>Employee</h1>
+      </div>
+      <div className="btn-add d-flex justify-content-center align-items-center"
         style={{ color: "#fff", backgroundColor: "#FFD460" }}
-        onClick={handleShow}
-      >
+        onClick={handleShow}>
         New Employee
       </div>
       <Row>
         {props.users.map((el) => (
-          <Col
-            xs={2}
-            key={el.id}
-            className="emp-row d-flex justify-content-center align-items-center"
-          >
-            <div onClick={() => handleShowDetail(el.id)}>
+          <Col xs={2} key={el.id} className="emp-row d-flex justify-content-center align-items-center"
+            onClick={() => handleShowDetail(el.id)} >
+            <div>
               <div className="d-flex justify-content-center">
                 <div className="rounded-circle employee d-flex justify-content-center align-items-center">
                   <h3>{props.getInitial(el.fullName)}</h3>
