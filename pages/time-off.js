@@ -6,7 +6,6 @@ import searchApi from '../services/api';
 import { useRouter } from 'next/router';
 
 export default function TimeOff() {
-  const router = useRouter()
   const [leaves, setLeaves] = useState([])
   const [leave, setLeave] = useState({})
   const [level, setLevel] = useState(0)
