@@ -1,4 +1,4 @@
-import TimeOffComp from '../components/listTimeOff';
+import ListTimeOff from '../components/time-off/list';
 import SideBar from '../components/sidebar'
 import { Row, Col, Container } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
@@ -25,10 +25,9 @@ export default function TimeOff() {
     }
   }
 
-  const getLeave = async () => {
+  const getLeave = async (id) => {
     try {
-      let params = router.query
-      const res = await searchApi.getLeaveById(params)
+      const res = await searchApi.getLeaveById({ id })
       setLeave(res)
     } catch (error) {
       console.log(error)
@@ -48,7 +47,7 @@ export default function TimeOff() {
           <SideBar />
         </Col>
         <Col xs={9}>
-          <TimeOffComp leaves={leaves} leave={leave} level={level} setLeave={setLeave} setLeaves={setLeaves}/>
+          <ListTimeOff leaves={leaves} leave={leave} level={level} setLeave={setLeave} setLeaves={setLeaves} />
         </Col>
       </Row>
     </Container>

@@ -1,10 +1,10 @@
 import { Row, Col, Container, Form, Button } from 'react-bootstrap';
-import { useState } from 'react';
 import { useRouter } from 'next/router'
-
+import { useState } from 'react';
 import Image from "next/image";
-import searchApi from '../services/api';
+
 import { success, error } from '../components/swal';
+import searchApi from '../services/api';
 
 export default function Login() {
   const [email, setEmail] = useState("")

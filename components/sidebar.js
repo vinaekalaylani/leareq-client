@@ -1,7 +1,7 @@
 import Link from 'next/link'
-import searchApi from '../services/api';
-
 import { useEffect, useState } from 'react';
+
+import searchApi from '../services/api';
 
 export default function SideBar() {
   const [initial, setInitial] = useState("")

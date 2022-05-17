@@ -1,9 +1,9 @@
 import { Row, Col, Container } from 'react-bootstrap';
+import { useEffect, useState } from "react"
+
 import ReqTimeOff from '../components/reqTimeOff';
 import SideBar from '../components/sidebar'
 import searchApi from "../services/api"
-
-import { useEffect, useState } from "react"
 
 export default function ApplyTimeOff() {
   const [user, setUser] = useState({})

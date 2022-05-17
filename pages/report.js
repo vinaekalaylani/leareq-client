@@ -1,7 +1,8 @@
-import SideBar from '../components/sidebar'
 import { Row, Col, Container } from 'react-bootstrap';
-import ReportComp from '../components/reporting';
 import { useEffect, useState } from 'react';
+
+import ReportComp from '../components/reporting';
+import SideBar from '../components/sidebar'
 import searchApi from '../services/api';
 
 export default function Report() {
