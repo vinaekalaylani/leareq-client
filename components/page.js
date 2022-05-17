@@ -21,6 +21,7 @@ export default function PageComp({ user, initial, leaves, setLeaves }) {
   }
 
   const handleClose = () => {
+    setReason("")
     setShow(false)
   }
 
