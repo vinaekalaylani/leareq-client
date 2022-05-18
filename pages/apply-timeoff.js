@@ -1,6 +1,7 @@
 import { Row, Col, Container } from 'react-bootstrap';
 import { useEffect, useState } from "react"
 
+import { success, error } from '../components/swal';
 import ReqTimeOff from '../components/reqTimeOff';
 import SideBar from '../components/sidebar'
 import searchApi from "../services/api"
@@ -12,18 +13,20 @@ export default function ApplyTimeOff() {
   const getUser = async () => {
     try {
       const res = await searchApi.getUserLogin()
-      setUser(res)
-    } catch (error) {
-      console.log(error)
+      setUser(res.data)
+    } catch (err) {
+      const { message } = err.response.data
+      error(message)
     }
   }
 
   const getInitial = async () => {
     try {
       const res = await searchApi.getInitial()
-      setInitial(res)
-    } catch (error) {
-      console.log(error)
+      setInitial(res.data)
+    } catch (err) {
+      const { message } = err.response.data
+      error(message)
     }
   }
 

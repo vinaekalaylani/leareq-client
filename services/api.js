@@ -2,58 +2,32 @@ import axios from "axios";
 
 class api {
   login = async (req) => {
-    const res = await axios.post('https://leareq-server.herokuapp.com/user/login', req)
+    const res = await axios.post('http://localhost:3600/user/login', req)
     localStorage.setItem("access_token", res.data.access_token)
     localStorage.setItem("level", res.data.level)
-    return res.data
+    return res
   }
 
   getInitial = async () => {
-    const res = await axios.get(`https://leareq-server.herokuapp.com/user/initial`, {
+    const res = await axios.get(`http://localhost:3600/user/initial`, {
       headers: {
         access_token: localStorage.getItem("access_token")
       }
     })
-    return res.data
+    return res
   }
 
   getUserLogin = async () => {
-    const res = await axios.get(`https://leareq-server.herokuapp.com/user/user-login`, {
+    const res = await axios.get(`http://localhost:3600/user/user-login`, {
       headers: {
         access_token: localStorage.getItem("access_token")
       }
     })
-    return res.data
-  }
-
-  QuickApply = async (req) => {
-    const dateFrom = new Date(Date.now()).toISOString().substring(0, 10);
-
-    const currentDate = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
-    const day = currentDate.getDate()
-    const month = currentDate.getMonth() + 1
-    const year = currentDate.getFullYear()
-    const dateTo = year + "-" + month + "-" + day
-
-    const data = {
-      type: "Leave",
-      dayType: "Full",
-      dateFrom,
-      dateTo,
-      reason: req
-    }
-
-    const res = await axios.post('https://leareq-server.herokuapp.com/leave/create', data,
-      {
-        headers: {
-          access_token: localStorage.getItem("access_token")
-        }
-      })
     return res
   }
 
   ApplyLeave = async (req) => {
-    const res = await axios.post('https://leareq-server.herokuapp.com/leave/create',
+    const res = await axios.post('http://localhost:3600/leave/create',
       req,
       {
         headers: {
@@ -62,41 +36,29 @@ class api {
       })
   }
 
-  getListLeaves = async (params) => {
-    let url = `https://leareq-server.herokuapp.com/leave/list`
-
-    if (params) url = `https://leareq-server.herokuapp.com/leave/list?type=${params.type}&status=${params.status}`
-
-    const res = await axios.get(url, {
+  getListLeaves = async () => {
+    const res = await axios.get(`http://localhost:3600/leave/list`, {
       headers: {
         access_token: localStorage.getItem("access_token")
       }
     })
-
-    const level = localStorage.getItem("level")
-    const user_login = await this.getUserLogin()
-    if (level == 0) {
-      const res_staff = await res.data.filter(el => el.UserId == user_login.id)
-      return res_staff
-    }
-
-    return res.data
+    return res
   }
 
   getLeaveById = async (params) => {
     let leaves = await this.getListLeaves()
-    let id = leaves[0].id
+    let id = leaves.data[0].id
     if (params.id) id = params.id
-    const res = await axios.get(`https://leareq-server.herokuapp.com/leave/list/${id}`, {
+    const res = await axios.get(`http://localhost:3600/leave/list/${id}`, {
       headers: {
         access_token: localStorage.getItem("access_token")
       }
     })
-    return res.data
+    return res
   }
 
   UpdateStatus = async (req, params) => {
-    const res = await axios.patch(`https://leareq-server.herokuapp.com/leave/update/${params}`, { status: req }, {
+    const res = await axios.patch(`http://localhost:3600/leave/update/${params}`, { status: req }, {
       headers: {
         access_token: localStorage.getItem("access_token")
       }
@@ -105,7 +67,7 @@ class api {
   }
 
   getListUser = async () => {
-    const res = await axios.get(`https://leareq-server.herokuapp.com/user/list`, {
+    const res = await axios.get(`http://localhost:3600/user/list`, {
       headers: {
         access_token: localStorage.getItem("access_token")
       }
@@ -114,7 +76,7 @@ class api {
   }
 
   getUser = async (id) => {
-    const res = await axios.get(`https://leareq-server.herokuapp.com/user/detail/${id}`, {
+    const res = await axios.get(`http://localhost:3600/user/detail/${id}`, {
       headers: {
         access_token: localStorage.getItem("access_token")
       }
@@ -123,7 +85,7 @@ class api {
   }
 
   CreateUser = async (req) => {
-    const res = await axios.post('https://leareq-server.herokuapp.com/user/create',
+    const res = await axios.post('http://localhost:3600/user/create',
       req,
       {
         headers: {
@@ -134,7 +96,7 @@ class api {
   }
 
   updateLeave = async (req, params) => {
-    const res = await axios.patch(`https://leareq-server.herokuapp.com/user/update/${params}`, { leaveAvailable: req }, {
+    const res = await axios.patch(`http://localhost:3600/user/update/${params}`, { leaveAvailable: req }, {
       headers: {
         access_token: localStorage.getItem("access_token")
       }
@@ -143,7 +105,7 @@ class api {
   }
 
   deleteUser = async (id) => {
-    const res = await axios.delete(`https://leareq-server.herokuapp.com/user/delete/${id}`, {
+    const res = await axios.delete(`http://localhost:3600/user/delete/${id}`, {
       headers: {
         access_token: localStorage.getItem("access_token")
       }

@@ -2,7 +2,7 @@ import { Row, Col, Container } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-import PageComp from "../components/page";
+import PageComp from "../components/homepage/page";
 import SideBar from "../components/sidebar";
 import searchApi from "../services/api";
 import { error } from "../components/swal";
@@ -17,9 +17,10 @@ export default function Home() {
   const getInitial = async () => {
     try {
       const res = await searchApi.getInitial();
-      setInitial(res);
+      setInitial(res.data);
     } catch (err) {
-      error(err);
+      const { message } = err.response.data
+      error(message)
     }
   };
 
@@ -27,11 +28,12 @@ export default function Home() {
     try {
       const res = await searchApi.getUserLogin();
       setLeaves(
-        res?.Leaves.sort((a, b) => (a.updatedAt > b.updatedAt ? -1 : 1))
+        res?.data.Leaves.sort((a, b) => (a.updatedAt > b.updatedAt ? -1 : 1))
       );
-      setUser(res);
+      setUser(res.data);
     } catch (err) {
-      error(err);
+      const { message } = err.response.data
+      error(message)
     }
   };
 
@@ -62,7 +64,6 @@ export default function Home() {
               user={user}
               leaves={leaves}
               initial={initial}
-              setLeaves={setLeaves}
             />
           </Col>
         </Row>

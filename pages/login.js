@@ -14,11 +14,12 @@ export default function Login() {
   const handleLogin = async (e) => {
     try {
       e.preventDefault();
-      await searchApi.login({email, password})
+      await searchApi.login({ email, password })
       success()
       router.push("/");
     } catch (err) {
-      error(err)
+      const { message } = err.response.data
+      error(message)
     }
   }
 
