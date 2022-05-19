@@ -1,12 +1,12 @@
 import { Row, Col, Container } from 'react-bootstrap';
 import { useEffect, useState } from "react"
 
-import { success, error } from '../components/swal';
-import ReqTimeOff from '../components/reqTimeOff';
+import { error } from '../components/swal';
+import ReqLeave from '../components/req-leave';
 import SideBar from '../components/sidebar'
 import searchApi from "../services/api"
 
-export default function ApplyTimeOff() {
+export default function ApplyLeave() {
   const [user, setUser] = useState({})
   const [initial, setInitial] = useState("")
 
@@ -42,7 +42,7 @@ export default function ApplyTimeOff() {
           <SideBar/>
         </Col>
         <Col xs={9}>
-          <ReqTimeOff user={user} initial={initial}/>
+          <ReqLeave user={user} initial={initial}/>
         </Col>
       </Row>
     </Container>

@@ -47,12 +47,12 @@ export default function SideBar() {
         </Link>
       </div>
       <div role="button" className="btn-sidebar">
-        <Link href="/apply-timeoff">
+        <Link href="/apply-leave">
           <div>APPLY</div>
         </Link>
       </div>
       <div role="button" className="btn-sidebar">
-        <Link href="/time-off">
+        <Link href="/leave">
           <div>LEAVE</div>
         </Link>
       </div>

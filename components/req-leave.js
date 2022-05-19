@@ -5,8 +5,7 @@ import { useState } from "react";
 import searchApi from "../services/api";
 import { success, error } from "./swal";
 
-export default function ReqTimeOff({ user, initial }) {
-  const [other, setOther] = useState("")
+export default function ReqLeave({ user, initial }) {
   const [type, setType] = useState("");
   const [dayType, setDayType] = useState("");
   const [dateFrom, setDateFrom] = useState("");
@@ -26,10 +25,8 @@ export default function ReqTimeOff({ user, initial }) {
   const handleApply = async (e) => {
     try {
       e.preventDefault();
-      let temp_type = type
-      if (type == "Other") temp_type = other
       const data = {
-        type: temp_type,
+        type,
         dayType,
         dateFrom,
         dateTo,
@@ -146,19 +143,12 @@ export default function ReqTimeOff({ user, initial }) {
                 <Col xs={3} style={{ marginRight: "-50px" }}>
                   <Form.Check
                     type="checkbox"
-                    label="Other :"
+                    label="Other"
                     className="mb-3"
                     onChange={() => handleType("Other")}
                     checked={type === "Other" ? true : false}
                   />
                 </Col>
-                <Col xs={4}>
-                  <Form.Control
-                    disabled={type === "Other" ? false : true}
-                    className="mb-3"
-                    value={other}
-                    onChange={(e) => setOther(e.target.value)}
-                  /></Col>
               </Row>
             </Col>
             <Col xs={4}>

@@ -43,7 +43,7 @@ export default function PageComp({ user, initial, leaves }) {
       </Row>
       <Row>
         <div className="page-text" style={{ margin: "-9px 0 9px 0" }}>
-          <h4>Time Off Request</h4>
+          <h4>Leave Request</h4>
         </div>
         <Table leaves={leaves} />
       </Row>

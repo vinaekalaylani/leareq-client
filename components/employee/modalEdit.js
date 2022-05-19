@@ -4,47 +4,33 @@ import { useState } from "react";
 import searchApi from "../../services/api";
 import { success, error } from "../swal";
 
-export default function ModalCreate({ managers, setShow, show, getEmployees }) {
+export default function ModalEdit({ show, managers, employee, handleClose, getEmployees }) {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [position, setPosition] = useState("");
   const [reportingManager, setReportingManager] = useState("");
   const [aditionalManager, setAditionalManager] = useState("");
   const [leaveAvailable, setLeaveAvailable] = useState("");
   const [level, setLevel] = useState("");
 
-  const handleClose = () => {
-    setFullName("")
-    setEmail("")
-    setPassword("")
-    setPosition("")
-    setReportingManager("")
-    setAditionalManager("")
-    setLeaveAvailable("")
-    setLevel("")
-    setShow(false);
-  };
-
-  const handleCreate = async (e) => {
+  const handleUpdate = async (e) => {
     try {
-      e.preventDefault();
+      e.preventDefault()
+
       const data = {
-        fullName,
-        email,
-        password,
-        position,
-        reportingManager,
-        aditionalManager,
+        // fullName,
+        // email,
+        // position,
+        // reportingManager,
+        // aditionalManager,
         leaveAvailable,
-        level,
+        // level,
       };
 
-      await searchApi.CreateUser(data);
-      success();
-      handleClose();
-
+      await searchApi.updateUser(data, employee.id);
       getEmployees({ fullName: "", deleted: false })
+      success()
+      handleClose()
     } catch (err) {
       const { message } = err.response.data
       error(message)
@@ -54,52 +40,46 @@ export default function ModalCreate({ managers, setShow, show, getEmployees }) {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Create New Employee</Modal.Title>
+        <Modal.Title>Employee</Modal.Title>
+        <br />
       </Modal.Header>
 
       <Modal.Body>
-        <Form onSubmit={handleCreate}>
+        <Form onSubmit={handleUpdate}>
           <Form.Control
             className="mb-3"
             placeholder="Full Name"
-            value={fullName}
+            value={employee.fullName}
             onChange={(e) => setFullName(e.target.value)}
           />
           <Form.Control
             className="mb-3"
             type="email"
             placeholder="Email"
-            value={email}
+            value={employee.email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <Form.Control
             className="mb-3"
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Form.Control
-            className="mb-3"
             placeholder="Position"
-            value={position}
+            value={employee.position}
             onChange={(e) => setPosition(e.target.value)}
           />
           <Form.Select
             className="mb-3"
-            value={reportingManager}
+            value={employee.reportingManager}
             onChange={(e) => setReportingManager(e.target.value)}
           >
             <option value="">Select Reporting Manager</option>
             {managers.map((el) => (
-              <option key={el.id + "RM"} value={el.fullName}>
+              <option key={el.id + "BM"} value={el.fullName}>
                 {el.fullName}
               </option>
             ))}
           </Form.Select>
           <Form.Select
             className="mb-3"
-            value={aditionalManager}
+            value={employee.aditionalManager}
             onChange={(e) => setAditionalManager(e.target.value)}
           >
             <option value="">Select Aditional Manager</option>
@@ -116,20 +96,17 @@ export default function ModalCreate({ managers, setShow, show, getEmployees }) {
             onChange={(e) => setLeaveAvailable(e.target.value)}
           />
           <Form.Select
+            type="number"
             className="mb-3"
-            value={level}
+            value={employee.level}
             onChange={(e) => setLevel(e.target.value)}
           >
             <option>Select Level</option>
             <option value="0">Staff</option>
             <option value="1">Superior</option>
           </Form.Select>
-          <Button
-            type="submit"
-            className="btn-add d-flex justify-content-center align-items-center"
-            style={{ color: "#fff", backgroundColor: "#05499C" }}
-          >
-            SAVE
+          <Button type="submit" className="btn-add d-flex justify-content-center align-items-center"
+            style={{ color: "#fff", backgroundColor: "#05499C" }}> SAVE
           </Button>
         </Form>
       </Modal.Body>

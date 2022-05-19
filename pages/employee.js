@@ -4,54 +4,46 @@ import { useEffect, useState } from "react";
 import EmployeeComp from "../components/employee/employee";
 import SideBar from "../components/sidebar";
 import searchApi from "../services/api";
+import { error } from '../components/swal';
 
 export default function Employee() {
-  const [user, setUser] = useState({});
-  const [users, setUsers] = useState([]);
+  const [employee, setEmployee] = useState({});
+  const [employees, setEmployees] = useState([]);
   const [managers, setManagers] = useState([]);
 
-  const getUsers = async () => {
+  const getEmployees = async (params) => {
     try {
-      const res = await searchApi.getListUser();
-      setUsers(res);
-    } catch (error) {
-      console.log(error);
+      const res = await searchApi.getListUser(params);
+      setEmployees(res.data);
+    } catch (err) {
+      const { message } = err.response.data
+      error(message)
     }
   };
 
-  const getUser = async (id) => {
+  const getEmployee = async (id) => {
     try {
       const res = await searchApi.getUser(id);
-      setUser(res);
-    } catch (error) {
-      console.log(error);
+      setEmployee(res.data);
+    } catch (err) {
+      const { message } = err.response.data
+      error(message)
     }
   };
 
   const getManagers = async () => {
     try {
-      const users = await searchApi.getListUser();
-      const res = users.filter((el) => el.level === 1);
+      const users = await searchApi.getListUser({ fullName: "", deleted: false });
+      const res = users.data.filter((el) => el.level === 1);
       setManagers(res);
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      const { message } = err.response.data
+      error(message)
     }
-  };
-
-  const getInitial = (name) => {
-    const arrName = name.split(" ");
-    let initial = "";
-    if (arrName.length > 1) {
-      initial = arrName[0][0] + arrName[1][0];
-    } else {
-      initial = arrName[0][0];
-    }
-    initial = initial.toUpperCase();
-    return initial;
   };
 
   useEffect(() => {
-    getUsers();
+    getEmployees({ fullName: "", deleted: false });
     getManagers();
   }, []);
 
@@ -64,12 +56,11 @@ export default function Employee() {
         <Col xs={9}>
           <EmployeeComp
             managers={managers}
-            users={users}
-            setUsers={setUsers}
-            user={user}
-            getUser={getUser}
-            getInitial={getInitial}
-            getUsers={getUsers}
+            employee={employee}
+            employees={employees}
+            setEmployees={setEmployees}
+            getEmployee={getEmployee}
+            getEmployees={getEmployees}
           />
         </Col>
       </Row>

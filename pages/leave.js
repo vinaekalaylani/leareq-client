@@ -1,8 +1,7 @@
-import ListTimeOff from '../components/time-off/list';
+import ListLeave from '../components/leave/list';
 import SideBar from '../components/sidebar'
 import { Row, Col, Container } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 
 import searchApi from '../services/api';
 import { error } from '../components/swal';
@@ -49,7 +48,7 @@ export default function TimeOff() {
           <SideBar />
         </Col>
         <Col xs={9}>
-          <ListTimeOff leaves={leaves} leave={leave} level={level} setLeave={setLeave} setLeaves={setLeaves} />
+          <ListLeave leaves={leaves} leave={leave} level={level} setLeave={setLeave} setLeaves={setLeaves} />
         </Col>
       </Row>
     </Container>
