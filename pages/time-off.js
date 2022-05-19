@@ -2,8 +2,10 @@ import ListTimeOff from '../components/time-off/list';
 import SideBar from '../components/sidebar'
 import { Row, Col, Container } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
-import searchApi from '../services/api';
 import { useRouter } from 'next/router';
+
+import searchApi from '../services/api';
+import { error } from '../components/swal';
 
 export default function TimeOff() {
   const [leaves, setLeaves] = useState([])
@@ -17,24 +19,23 @@ export default function TimeOff() {
 
   const getLeaves = async () => {
     try {
-      const user = await searchApi.getUserLogin()
-      const data_leaves = await searchApi.getListLeaves()
-      const res = data_leaves.filter(el => el.User.reportingManager == user.fullName || el.User.aditionalManager == user.fullName)
-      setLeaves(res)
-    } catch (error) {
-      console.log(error)
+      const res = await searchApi.getListLeaves()
+      setLeaves(res.data)
+    } catch (err) {
+      const { message } = err.response.data
+      error(message)
     }
   }
 
   const getLeave = async (id) => {
     try {
       const res = await searchApi.getLeaveById({ id })
-      setLeave(res)
-    } catch (error) {
-      console.log(error)
+      setLeave(res.data)
+    } catch (err) {
+      const { message } = err.response.data
+      error(message)
     }
   }
-
   useEffect(() => {
     getLeaves()
     getLeave()

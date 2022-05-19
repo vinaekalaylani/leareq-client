@@ -10,10 +10,9 @@ export function success() {
 }
 
 export function error(error) {
-  const { message } = error.response.data;
   Swal.fire({
     icon: "error",
     title: "Oops...",
-    text: message,
+    text: error,
   });
 }
