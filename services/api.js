@@ -63,16 +63,27 @@ class api {
         access_token: localStorage.getItem("access_token")
       }
     })
-    return res.data
+    return res
   }
 
-  getListUser = async () => {
-    const res = await axios.get(`http://localhost:3600/user/list`, {
+  getHistory = async (params) => {
+    const {type, status, deleted, year} = params
+    const res = await axios.get(`http://localhost:3600/leave/history?type=${type}&status=${status}&isDeleted=${deleted}&year=${year}`, {
       headers: {
         access_token: localStorage.getItem("access_token")
       }
     })
-    return res.data
+    return res
+  }
+
+  getListUser = async (params) => {
+    const { fullName, deleted } = params
+    const res = await axios.get(`http://localhost:3600/user/list?fullName=${fullName}&isDeleted=${deleted}`, {
+      headers: {
+        access_token: localStorage.getItem("access_token")
+      }
+    })
+    return res
   }
 
   getUser = async (id) => {
@@ -81,7 +92,7 @@ class api {
         access_token: localStorage.getItem("access_token")
       }
     })
-    return res.data
+    return res
   }
 
   CreateUser = async (req) => {
@@ -95,12 +106,13 @@ class api {
     return res.data
   }
 
-  updateLeave = async (req, params) => {
-    const res = await axios.patch(`http://localhost:3600/user/update/${params}`, { leaveAvailable: req }, {
+  updateUser = async (req, params) => {
+    const res = await axios.patch(`http://localhost:3600/user/update-leave/${params}`, req, {
       headers: {
         access_token: localStorage.getItem("access_token")
       }
     })
+    console.log(res)
     return res
   }
 

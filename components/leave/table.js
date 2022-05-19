@@ -1,10 +1,11 @@
 import DataTable from 'react-data-table-component'
+import searchApi from "../../services/api";
 
-export default function Table({ leaves, handleDetail }) {
+export default function Table({ leaves, setLeave }) {
   const columns = [
     {
       name: 'Name',
-      maxWidth: '500px',
+      maxWidth: '200px',
       selector: row => row.User.fullName,
       style: {
         fontSize: '14px',
@@ -20,7 +21,7 @@ export default function Table({ leaves, handleDetail }) {
     },
     {
       name: 'Type',
-      maxWidth: '150px',
+      maxWidth: '20px',
       selector: row => row.type,
       sortable: true,
       style: {
@@ -29,7 +30,7 @@ export default function Table({ leaves, handleDetail }) {
     },
     {
       name: 'Total Days',
-      maxWidth: '100px',
+      maxWidth: '20px',
       selector: row => row.totalDays,
       style: {
         fontSize: '14px',
@@ -37,16 +38,17 @@ export default function Table({ leaves, handleDetail }) {
     },
     {
       name: 'Status',
-      maxWidth: '160px',
-      selector: row => row.status == 0 ? "Pending" : (row.status === 1 ? "Approved" : "Rejected"),
+      maxWidth: '20px',
+      selector: row => row.status == 0 ? "Pending" : (row.status == 1 ? "Approved" : "Rejected"),
       style: {
         fontSize: '14px',
       }
     }
   ]
 
-  const handleClick = () => {
-    console.log("jajaj")
+  const handleClick = async state => {
+    const res = await searchApi.getLeaveById({ id: state.id });
+    setLeave(res.data);
   };
 
   return (

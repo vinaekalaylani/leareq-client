@@ -198,7 +198,7 @@ abbr[title] {
   border-radius: 20px;
 }
 
-/* LIST TIME OFF */
+/* LIST LEAVE */
 .to-container {
   max-height: 41rem;
   box-shadow: -12px -12px 10px rgba(255, 255, 255, 0.2), 5px 5px 10px rgba(166, 180, 200, 0.7);
@@ -209,7 +209,7 @@ abbr[title] {
 }
 
 .detail-to {
-  width: 400px;
+  width: 350px;
   height: 600px;
   box-shadow: -12px -12px 10px rgba(255, 255, 255, 0.2), 5px 5px 10px rgba(166, 180, 200, 0.7);
   border-radius: 10px;
@@ -230,24 +230,30 @@ abbr[title] {
 /* REPORT*/
 .report-container {
   max-height: 41rem;
-  overflow: scroll;
-  padding-left: 12px;
+  box-shadow: -12px -12px 10px rgba(255, 255, 255, 0.2), 5px 5px 10px rgba(166, 180, 200, 0.7);
+  color: #fff;
+  border-radius: 10px;
+  border: solid 1px;
+  border-color: #F6F6F6;
+  padding: 10px
 }
+
 .filter-card {
-  width: 400px;
-  height: 260px;
+  width: 350px;
+  height: 350px;
   box-shadow: -12px -12px 10px rgba(255, 255, 255, 0.2), 5px 5px 10px rgba(166, 180, 200, 0.7);
   border-radius: 10px;
   color: #47597E;
 }
 
 /* EMPLOYEE */
-.employee {
-  width: 5rem;
-  height: 5rem;
-  border: solid;
-  border-color: #47597E;
-  color: #47597E;
+.emp-container {
+  max-height: 41rem;
+  box-shadow: -12px -12px 10px rgba(255, 255, 255, 0.2), 5px 5px 10px rgba(166, 180, 200, 0.7);
+  border-radius: 10px;
+  border: solid 1px;
+  border-color: #F6F6F6;
+  padding: 10px
 }
 
 .emp-text {
